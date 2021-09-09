@@ -62,33 +62,58 @@ describe('Test Amm', () => {
 
     it('should open long limit correct and filled with 1 account', async () => {
 
+        console.log(account0.address);
+        await positionHouse.connect(account0).openLimitOrder(
+            // Iamm
+            addressAmm,
+            // amount base
+            toWei(0.95238),
+            //amount quote
+            toWei(1000),
+            //limit price
+            toWei(1050),
+            //side
+            1,
+            //
+            69569,
+            toWei(1)
+        );
 
         await positionHouse.connect(account0).openLimitOrder(
             // Iamm
             addressAmm,
             // amount base
-            toWei(0.001),
+            toWei(1.86916),
             //amount quote
-            toWei(1000),
+            toWei(2000),
             //limit price
-            toWei(950),
+            toWei(1070),
             //side
-            0,
+            1,
             //
-            68568,
+            69758,
             toWei(1)
         );
 
         await positionHouse.connect(account1).openPosition(
             addressAmm,
-            1,
-            toWei(4000),
-            toWei(40),
+            0,
+            toWei(5000),
+            toWei(5),
             10
         );
 
+        await positionHouse.connect(account2).openPosition(
+            addressAmm,
+            1,
+            toWei(5000),
+            toWei(5),
+            10
+        );
 
+        await amm.connect(account0).getPosition(
+            account0.address
+        );
     });
-
 
 })
